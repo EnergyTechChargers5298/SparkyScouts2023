@@ -1,79 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:sparky_scouts/match.dart';
-import 'package:sparky_scouts/pit.dart';
-import 'package:sparky_scouts/sync.dart';
+import 'package:sparky_scouts/screens/match.dart';
+import 'package:sparky_scouts/screens/menu.dart';
+import 'package:sparky_scouts/screens/pit.dart';
+import 'package:sparky_scouts/screens/sync.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  // initialise app based on platform- web or mobile
+  runApp(MaterialApp(
+    initialRoute: '/',
+    routes: {
+      '/': (context) => const MenuPage(),
+      '/pit': (context) => const PitPage(),
+      '/match': (context) => const MatchPage(),
+      '/sync': (context) => const SyncPage(),
+    },
+  ));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.green),
-      home: const HomePage(),
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        // This is the theme of your application.
+        //
+        // Try running your application with "flutter run". You'll see the
+        // application has a blue toolbar. Then, without quitting the app, try
+        // changing the primarySwatch below to Colors.green and then invoke
+        // "hot reload" (press "r" in the console where you ran "flutter run",
+        // or simply save your changes to "hot reload" in a Flutter IDE).
+        // Notice that the counter didn't reset back to zero; the application
+        // is not restarted.
+        primarySwatch: Colors.blue,
+      ),
+      home: const MenuPage(),
     );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  int currentPage = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    String loginName = 'temp';
-    return Scaffold(
-        bottomNavigationBar: NavigationBar(
-          destinations: const [
-            NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-            NavigationDestination(icon: Icon(Icons.home), label: 'Pit'),
-            NavigationDestination(icon: Icon(Icons.airlines), label: 'Match'),
-            NavigationDestination(icon: Icon(Icons.sync), label: 'Sync'),
-          ],
-          onDestinationSelected: (int index) {
-            setState(() {
-              currentPage = index;
-            });
-          },
-          selectedIndex: currentPage,
-        ),
-        body: Column(
-          children: <Widget>[
-            const SizedBox(height: 50),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Welcome $loginName',
-                  style: const TextStyle(fontSize: 25),
-                ),
-                const Spacer(flex: 1),
-                Container(
-                  height: 20.0,
-                  width: 20.0,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('images/default_pfp.png'),
-                      fit: BoxFit.fill,
-                    ),
-                    shape: BoxShape.circle,
-                  ),
-                )
-              ],
-            )
-          ],
-        ));
   }
 }
