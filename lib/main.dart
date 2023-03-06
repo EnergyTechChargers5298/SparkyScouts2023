@@ -1,11 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:sparky_scouts/firebase_options.dart';
 import 'package:sparky_scouts/screens/match.dart';
 import 'package:sparky_scouts/screens/menu.dart';
 import 'package:sparky_scouts/screens/pit.dart';
 import 'package:sparky_scouts/screens/sync.dart';
 
 void main() async {
-  // initialise app based on platform- web or mobile
+  // Initalizes the firebase app
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  // Initialise app based on platform- web or mobile
   runApp(MaterialApp(
     initialRoute: '/',
     routes: {

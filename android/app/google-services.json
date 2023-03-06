@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "615004966903",
+    "project_id": "sparky-scouts",
+    "storage_bucket": "sparky-scouts.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:615004966903:android:4c7860ff33577e9bf028f2",
+        "android_client_info": {
+          "package_name": "com.example.sparky_scouts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "615004966903-6c5rkrui6ftjar3j28d8u80umehldohf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9Rsl6mUhwhGeAt3YDiKpQ7H2EvDP7rgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "615004966903-6c5rkrui6ftjar3j28d8u80umehldohf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
