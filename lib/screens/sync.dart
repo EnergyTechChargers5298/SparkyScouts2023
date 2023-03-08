@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sparky_scouts/widgets/navbar.dart';
 
 class SyncPage extends StatelessWidget {
   const SyncPage({Key? key}) : super(key: key);
@@ -10,36 +11,7 @@ class SyncPage extends StatelessWidget {
         title: const Text('Sync'),
         backgroundColor: Colors.green,
       ),
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          if (index == 0) {
-            Navigator.pushNamed(context, '/');
-          } else if (index == 2) {
-            Navigator.pushNamed(context, '/match');
-          } else if (index == 1) {
-            Navigator.pushNamed(context, '/pit');
-          }
-        },
-        selectedIndex: 3,
-        destinations: const <Widget>[
-          NavigationDestination(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.handyman),
-            label: 'Pit',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.gamepad),
-            label: 'Match',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.sync),
-            label: 'Sync',
-          ),
-        ],
-      ),
+      bottomNavigationBar: const Navbar(index: PageIndex.sync),
     );
   }
 }
