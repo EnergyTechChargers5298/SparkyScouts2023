@@ -11,6 +11,7 @@ class MenuPage extends StatefulWidget {
 class _MenuPageState extends State<MenuPage> {
   final Stream<QuerySnapshot> matches =
       FirebaseFirestore.instance.collection('match').snapshots();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,11 +35,14 @@ class _MenuPageState extends State<MenuPage> {
 
                   final data = snapshot.requireData;
 
+                  String screenTest = "Hi Bob";
+                  // 'The test data prints' ${data.docs[index]['MatchNum']}.';
+
                   return ListView.builder(
                       itemCount: data.size,
                       itemBuilder: (context, index) {
-                        return Text(
-                            'The test data prints ${data.docs[index]['test']}.');
+                        return Text(screenTest);
+                        // );
                       });
                 })));
   }
