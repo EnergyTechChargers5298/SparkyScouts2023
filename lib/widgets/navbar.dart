@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // For better indexing
-enum PageIndex { menu, pit, match, sync }
+enum PageIndex { menu, pit, auto, sinc }
 
 class Navbar extends StatelessWidget {
   const Navbar({super.key, required this.index});
@@ -22,9 +22,9 @@ class Navbar extends StatelessWidget {
         } else if (index == 1) {
           Navigator.pushNamed(context, '/pit');
         } else if (index == 2) {
-          Navigator.pushNamed(context, '/match');
+          Navigator.pushNamed(context, '/auto');
         } else if (index == 3) {
-          Navigator.pushNamed(context, '/sync');
+          Navigator.pushNamed(context, '/sinc');
         }
       },
       selectedIndex: index.index,
@@ -39,11 +39,11 @@ class Navbar extends StatelessWidget {
         ),
         NavigationDestination(
           icon: Icon(Icons.gamepad),
-          label: 'Match',
+          label: 'Field',
         ),
         NavigationDestination(
           icon: Icon(Icons.sync),
-          label: 'Sync',
+          label: 'Sinc',
         ),
       ],
     );

@@ -1,17 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:sparky_scouts/screens/auto.dart';
 import 'package:sparky_scouts/widgets/navbar.dart';
-import 'endgame.dart';
 
-class MatchPage extends StatefulWidget {
-  const MatchPage({Key? key}) : super(key: key);
+class Endgame extends StatefulWidget {
+  const Endgame({Key? key}) : super(key: key);
 
   @override
-  State<MatchPage> createState() => _MatchPageState();
+  State<Endgame> createState() => _EndGameState();
 }
 
-class _MatchPageState extends State<MatchPage> {
+class _EndGameState extends State<Endgame> {
   final nameController = TextEditingController();
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -25,14 +23,12 @@ class _MatchPageState extends State<MatchPage> {
           children: <Widget>[
             TextField(
               controller: nameController,
-              decoration: decoration('Team Number'),
+              decoration: decoration('Not Team Number'),
             ),
           ],
         ),
         floatingActionButton: FloatingActionButton(onPressed: () {
-          sendMatch(name: nameController.text);
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => const Endgame()));
+          sendEndgame(name: nameController.text);
         }),
       );
 
@@ -41,11 +37,12 @@ class _MatchPageState extends State<MatchPage> {
         border: const OutlineInputBorder(),
       );
 
-  Future sendMatch({required String name}) async {
-    final matchNum = FirebaseFirestore.instance.collection('match').doc();
+  Future sendEndgame({required String name}) async {
+    final matchNum =
+        FirebaseFirestore.instance.collection('match').doc('team-name');
 
     final json = {'name': name};
 
-    await matchNum.set(json);
+    await matchNum.update(json);
   }
 }

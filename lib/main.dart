@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sparky_scouts/firebase_options.dart';
-import 'package:sparky_scouts/screens/match.dart';
+import 'package:sparky_scouts/screens/auto.dart';
 import 'package:sparky_scouts/screens/menu.dart';
 import 'package:sparky_scouts/screens/pit.dart';
-import 'package:sparky_scouts/screens/sync.dart';
+import 'package:sparky_scouts/screens/sinc.dart';
 
 void main() async {
   // Initalizes the firebase app
@@ -18,8 +18,8 @@ void main() async {
     routes: {
       '/': (context) => const MenuPage(),
       '/pit': (context) => const PitPage(),
-      '/match': (context) => const MatchPage(),
-      '/sync': (context) => const SyncPage(),
+      '/auto': (context) => const AutoPage(),
+      '/sinc': (context) => const SincPage(),
     },
   ));
 }
