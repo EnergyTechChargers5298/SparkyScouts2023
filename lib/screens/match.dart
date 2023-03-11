@@ -25,7 +25,7 @@ class _MatchPageState extends State<MatchPage> {
           children: <Widget>[
             TextField(
               controller: nameController,
-              decoration: decoration('Team Number'),
+              decoration: decoration('Help me'),
             ),
           ],
         ),

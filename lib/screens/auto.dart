@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sparky_scouts/screens/endgame.dart';
+import 'package:sparky_scouts/screens/match.dart';
 import 'package:sparky_scouts/utils/matchdoc.dart';
 import 'package:sparky_scouts/widgets/navbar.dart';
 
@@ -14,23 +16,9 @@ class _AutoPageState extends State<AutoPage> {
   final teamController = TextEditingController();
   final matchController = TextEditingController();
 
-  int matchNum = -1;
-  int teamNum = -1;
+  MatchDoc matchDoc = MatchDoc.getInstance();
 
-  int conesScoredAuto = 0;
-  int cubesScoredAuto = 0;
-
-  int cubesPosessedAuto = 0;
-  int conesPosessedAuto = 0;
-
-  int conesScoredTeleOp = 0;
-  int cubesScoredTeleOp = 0;
-
-  int cubesPosessedTeleOp = 0;
-  int conesPosessedTeleOp = 0;
-
-  bool chargeStationAuto = false;
-  bool chargeStationTeleOp = false;
+  //pull the matchdoc
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -46,6 +34,11 @@ class _AutoPageState extends State<AutoPage> {
               keyboardType: TextInputType.number,
               controller: matchController,
               decoration: decoration('Match Number'),
+              onChanged: (value) {
+                setState(() {
+                  matchDoc.matchNum = int.parse(value);
+                });
+              },
             ),
             const Padding(
                 padding: EdgeInsets.only(right: 1000, top: 30, left: 30)),
@@ -53,6 +46,11 @@ class _AutoPageState extends State<AutoPage> {
               keyboardType: TextInputType.number,
               controller: teamController,
               decoration: decoration('Team Number'),
+              onChanged: (value) {
+                setState(() {
+                  matchDoc.teamNum = int.parse(value);
+                });
+              },
             ),
             const Padding(
                 padding: EdgeInsets.only(right: 1000, top: 30, left: 30)),
@@ -66,16 +64,23 @@ class _AutoPageState extends State<AutoPage> {
             const Padding(
                 padding: EdgeInsets.only(right: 2000, top: 30, left: 30)),
             Switch(
-              value: chargeStationAuto,
+              value: matchDoc.chargeStationAuto,
               onChanged: (value) {
                 setState(
                   () {
-                    chargeStationAuto = value;
+                    matchDoc.chargeStationAuto = value;
                   },
                 );
               },
             ),
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.arrow_forward),
+          onPressed: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => const Endgame()));
+          },
         ),
       );
 
@@ -83,12 +88,4 @@ class _AutoPageState extends State<AutoPage> {
         labelText: title,
         border: const OutlineInputBorder(),
       );
-
-  Future sendAuto({required int name}) async {
-    final matchNum = FirebaseFirestore.instance.collection('match').doc();
-
-    final json = {'name': name};
-
-    await matchNum.update(json);
-  }
 }

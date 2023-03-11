@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sparky_scouts/utils/matchdoc.dart';
 import 'package:sparky_scouts/widgets/navbar.dart';
 
 class Endgame extends StatefulWidget {
@@ -10,6 +11,7 @@ class Endgame extends StatefulWidget {
 }
 
 class _EndGameState extends State<Endgame> {
+  MatchDoc matchDoc = MatchDoc.getInstance();
   final nameController = TextEditingController();
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -22,13 +24,17 @@ class _EndGameState extends State<Endgame> {
           padding: const EdgeInsets.only(right: 1400, top: 30, left: 30),
           children: <Widget>[
             TextField(
-              controller: nameController,
-              decoration: decoration('Not Team Number'),
-            ),
+                controller: nameController,
+                decoration: decoration('Not Team Number'),
+                onChanged: (value) {
+                  setState(() {
+                    matchDoc.conesScoredAuto = int.parse(value);
+                  });
+                }),
           ],
         ),
         floatingActionButton: FloatingActionButton(onPressed: () {
-          sendEndgame(name: nameController.text);
+          matchDoc.sendData(doc: matchDoc);
         }),
       );
 
@@ -36,13 +42,4 @@ class _EndGameState extends State<Endgame> {
         labelText: title,
         border: const OutlineInputBorder(),
       );
-
-  Future sendEndgame({required String name}) async {
-    final matchNum =
-        FirebaseFirestore.instance.collection('match').doc('team-name');
-
-    final json = {'name': name};
-
-    await matchNum.update(json);
-  }
 }
