@@ -1,28 +1,20 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sparky_scouts/firebase_options.dart';
-import 'package:sparky_scouts/screens/auto.dart';
-import 'package:sparky_scouts/screens/menu.dart';
+import 'package:sparky_scouts/screens/home.dart';
+import 'package:sparky_scouts/screens/match.dart';
 import 'package:sparky_scouts/screens/pit.dart';
-import 'package:sparky_scouts/screens/sinc.dart';
+import 'package:sparky_scouts/screens/sync.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
   // Initalizes the firebase app
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
   // Initialise app based on platform- web or mobile
-  runApp(MaterialApp(
-    initialRoute: '/',
-    routes: {
-      '/': (context) => const MenuPage(),
-      '/pit': (context) => const PitPage(),
-      '/auto': (context) => const AutoPage(),
-      '/sinc': (context) => const SincPage(),
-    },
-  ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -32,20 +24,65 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Sparky Scouts',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MenuPage(),
+      home: const RootPage(),
+    );
+  }
+}
+
+class RootPage extends StatefulWidget {
+  const RootPage({super.key});
+
+  @override
+  State<RootPage> createState() => _RootPageState();
+}
+
+class _RootPageState extends State<RootPage> {
+  int currentPage = 0;
+  List<Widget> pages = const [
+    HomePage(),
+    PitPage(),
+    MatchPage(),
+    SyncPage(),
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Scouter App'),
+        automaticallyImplyLeading: false,
+      ),
+      body: pages[currentPage],
+      bottomNavigationBar: NavigationBar(
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.handyman_sharp),
+            label: 'Pit',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.games_rounded),
+            label: 'Match',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.recycling),
+            label: 'Sync',
+          ),
+        ],
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPage = index;
+          });
+        },
+        selectedIndex: currentPage,
+      ),
     );
   }
 }

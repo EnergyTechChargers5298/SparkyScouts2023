@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class PitPage extends StatelessWidget {
-  const PitPage({super.key});
+class SyncPage extends StatelessWidget {
+  const SyncPage({super.key});
 
   @override
   Widget build(BuildContext context) {
