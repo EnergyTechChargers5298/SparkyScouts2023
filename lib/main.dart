@@ -7,6 +7,7 @@ import 'package:sparky_scouts/screens/pit.dart';
 import 'package:sparky_scouts/screens/sinc.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   // Initalizes the firebase app
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
